@@ -1,32 +1,84 @@
-# SpartanFit ⚔️
+<div align="center">
 
-Plataforma web de acompanhamento de treinos e hábitos, formada por um site institucional e um web app com login e banco de dados. Desenvolvida como Trabalho de Conclusão de Curso (TCC) em 2026.
+<img src="banner.png" alt="SpartanFit" width="100%">
 
-* * *
+<br>
 
-## Funcionalidades
+**Plataforma web de acompanhamento de treinos e hábitos, com site institucional, web app e banco de dados.**
 
-- Site institucional com apresentação do projeto e navegação em página única
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![XAMPP](https://img.shields.io/badge/XAMPP-FB7A24?style=for-the-badge&logo=xampp&logoColor=white)
+
+[Funcionalidades](#-funcionalidades) •
+[Tecnologias](#-tecnologias) •
+[Como rodar](#-como-rodar) •
+[Estrutura](#-estrutura-do-projeto) •
+[Banco de dados](#-banco-de-dados) •
+[API](#-api)
+
+</div>
+
+---
+
+## 🛡️ Sobre
+
+O SpartanFit nasceu como dois protótipos separados: um site institucional e um web app cujos dados ficavam apenas na memória do navegador. Em outubro de 2026, os dois foram unidos em um sistema único, com **autenticação real** e **banco de dados MySQL**.
+
+Desenvolvido como Trabalho de Conclusão de Curso (TCC), 2026.
+
+## ✨ Funcionalidades
+
+**Site**
+- Apresentação do projeto com navegação em página única e animações
 - Questionário de avaliação física com 10 perguntas
 - Cadastro e login com senhas criptografadas (hash)
-- Web app com Para você, Treinos, Tarefas, Nutrição, Metas, Progresso e Perfil
-- Acesso ao app protegido por sessão
+
+**Web app**
+- Painel com Para você, Treinos, Tarefas, Nutrição, Metas, Progresso e Perfil
+- Acesso protegido por sessão: sem login, volta ao site
 - Perfil salvo no banco: nome, e-mail, peso, altura, nível e meta de sono
-- Cálculo automático de IMC e troca de senha
+- Cálculo automático de IMC, troca de senha e logout
 - Design responsivo (desktop e mobile)
 
-## Tecnologias
+## 🧰 Tecnologias
 
-| Camada   | Tecnologia                                 |
-|----------|--------------------------------------------|
-| Frontend | HTML5, CSS3, JavaScript (vanilla)          |
-| Animação | GSAP e Lenis (rolagem suave)               |
-| Backend  | PHP (vanilla)                              |
-| Banco    | MySQL (PDO)                                |
-| Servidor | XAMPP (Apache + MySQL)                     |
-| Fontes   | Anton, Inter e Poppins (Google Fonts)      |
+| Camada   | Tecnologia                            |
+|----------|---------------------------------------|
+| Frontend | HTML5, CSS3, JavaScript (vanilla)     |
+| Animação | GSAP e Lenis (rolagem suave)          |
+| Backend  | PHP (vanilla)                         |
+| Banco    | MySQL (PDO)                           |
+| Servidor | XAMPP (Apache + MySQL)                |
+| Fontes   | Anton, Inter e Poppins (Google Fonts) |
 
-## Estrutura do Projeto
+## 🚀 Como rodar
+
+1. Inicie o **XAMPP** (Apache + MySQL)
+2. Copie o projeto para a pasta `htdocs`, ficando `htdocs/spartanfit`
+3. Acesse `http://localhost/spartanfit/index.html`
+4. Em **Login/Criar Conta**, crie sua conta
+
+O banco e as tabelas são criados automaticamente no primeiro cadastro. Se preferir, importe o `database.sql` pelo `http://localhost/phpmyadmin`.
+
+> [!NOTE]
+> O projeto usa PHP e MySQL, então **não funciona no GitHub Pages**. É preciso rodar em um servidor com PHP, como o XAMPP.
+
+### Configuração do banco
+
+Credenciais padrão em `api/config.php`:
+
+| Parâmetro | Valor      |
+|-----------|------------|
+| Host      | 127.0.0.1  |
+| Database  | spartanfit |
+| Usuário   | root       |
+| Senha     | (vazio)    |
+
+## 📁 Estrutura do projeto
 
 ```
 ├── index.html                # Site institucional
@@ -47,63 +99,38 @@ Plataforma web de acompanhamento de treinos e hábitos, formada por um site inst
 │   ├── password.php          # Trocar senha
 │   └── state.php             # Dados do app (reservado)
 │
+├── banner.png                # Banner do README
 └── imagens e vídeo           # Logo, símbolo, foto de perfil e fundo
 ```
 
-## Como Rodar
+## 🗄️ Banco de dados
 
-1. Inicie o **XAMPP** (Apache + MySQL)
-2. Copie o projeto para a pasta `htdocs` do XAMPP, ficando `htdocs/spartanfit`
-3. Acesse via `http://localhost/spartanfit/index.html`
-4. Em **Login/Criar Conta**, crie sua conta
+- **users**: contas (nome, e-mail único, senha com hash)
+- **profiles**: peso, altura, nível, meta de sono e respostas do quiz (FK para users com CASCADE)
+- **app_state**: dados do app em JSON, reservada para treinos, metas, água e sono (FK para users com CASCADE)
 
-O banco e as tabelas são criados automaticamente no primeiro cadastro. Se preferir, também é possível importar o arquivo `database.sql` pelo `http://localhost/phpmyadmin`.
+## 🔌 API
 
-> O projeto usa PHP e MySQL, então **não funciona no GitHub Pages**. É preciso rodar em um servidor com PHP, como o XAMPP.
+| Arquivo      | Método   | Descrição                                           |
+|--------------|----------|-----------------------------------------------------|
+| register.php | POST     | Cria a conta e o perfil e inicia a sessão           |
+| login.php    | POST     | Confere e-mail e senha e inicia a sessão            |
+| logout.php   | POST     | Encerra a sessão                                    |
+| me.php       | GET      | Retorna o usuário logado (401 se não houver sessão) |
+| profile.php  | POST     | Atualiza nome, e-mail, peso, altura, nível e sono   |
+| password.php | POST     | Troca a senha após conferir a atual                 |
+| state.php    | GET/POST | Lê e grava os dados do app em JSON                  |
 
-### Configuração do Banco
-
-As credenciais padrão estão em `api/config.php`:
-
-| Parâmetro | Valor      |
-|-----------|------------|
-| Host      | 127.0.0.1  |
-| Database  | spartanfit |
-| Usuário   | root       |
-| Senha     | (vazio)    |
-
-## Banco de Dados
-
-- **users** — contas (nome, e-mail único, senha com hash)
-- **profiles** — perfil do usuário (peso, altura, nível, meta de sono e respostas do quiz, FK para users com CASCADE)
-- **app_state** — dados do app em JSON, reservada para treinos, metas, água e sono (FK para users com CASCADE)
-
-## API
-
-| Arquivo        | Método   | Descrição                                          |
-|----------------|----------|----------------------------------------------------|
-| register.php   | POST     | Cria a conta e o perfil e inicia a sessão          |
-| login.php      | POST     | Confere e-mail e senha e inicia a sessão           |
-| logout.php     | POST     | Encerra a sessão                                   |
-| me.php         | GET      | Retorna o usuário logado (401 se não houver sessão)|
-| profile.php    | POST     | Atualiza nome, e-mail, peso, altura, nível e sono  |
-| password.php   | POST     | Troca a senha após conferir a atual                |
-| state.php      | GET/POST | Lê e grava os dados do app em JSON                 |
-
-## Segurança
+## 🔒 Segurança
 
 - Senhas com `password_hash`
 - Consultas com prepared statements (PDO)
 - Cookie de sessão HttpOnly e SameSite=Lax
 - Validação repetida no servidor
 
-## Sobre o Projeto
+## 🗺️ Próximos passos
 
-O SpartanFit nasceu como dois protótipos separados: um site institucional e um web app cujos dados ficavam apenas na memória do navegador. Em outubro de 2026, os dois foram unidos em um sistema único, com autenticação real e banco de dados MySQL.
-
-Próximos passos:
-
-- Salvar treinos, metas, nutrição, água e sono no banco
-- Salvar a foto de perfil
-- Recuperação de senha por e-mail
-- Publicar em servidor com HTTPS
+- [ ] Salvar treinos, metas, nutrição, água e sono no banco
+- [ ] Salvar a foto de perfil
+- [ ] Recuperação de senha por e-mail
+- [ ] Publicar em servidor com HTTPS
