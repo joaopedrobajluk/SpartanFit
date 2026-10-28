@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpartanFit | Forje sua Melhor Versão</title>
+    <meta name="description" content="Transforme disciplina em evolução. Treinos personalizados, avaliação física e mentalidade espartana.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- GSAP Core & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+    <script src="https://assets.codepen.io/16327/InertiaPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js"></script>
+    <script src="https://assets.codepen.io/16327/SplitText3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-member="false">
+
+  <a href="#main-content" class="sr-only sr-only-focusable">Pular para o conteúdo</a>
+
+  <!-- PRELOADER SPARTANFIT COM ONDA SVG -->
+  <div id="preloader" aria-hidden="true">
+    <div class="preloader__bg"></div>
+    <div class="preloader__logo">
+      <!-- Logo vazia (apenas bordas/fundo) -->
+      <img src="logo-spartan.png" class="preloader__logo-empty" alt="SpartanFit">
+      <!-- Logo sólida que será preenchida pela onda -->
+      <svg class="preloader__logo-fill-svg" viewBox="0 0 180 180" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <clipPath id="waveClip">
+            <path id="wavePath" d="M -200,200 C -175,170 -125,230 -100,200 C -75,170 -25,230 0,200 C 25,170 75,230 100,200 C 125,170 175,230 200,200 C 225,170 275,230 300,200 L 300,400 L -200,400 Z" />
+          </clipPath>
+        </defs>
+        <image href="simbolo-solido-branco.png" width="180" height="180" clip-path="url(#waveClip)" preserveAspectRatio="xMidYMid meet"></image>
+      </svg>
+    </div>
+    <div class="preloader__percent" role="status" aria-live="polite">0%</div>
+  </div>
+
+  <div class="page-transition-wrapper" aria-hidden="true">
+      <div class="page-transition-layer" id="transitionLayer2">
+          <div class="transition-brand" id="transitionBrand">
+              <img src="simbolo-solido-branco.png" class="transition-brand__logo" alt="SpartanFit">
+              <span class="transition-brand__text">SPARTAN FIT</span>
+          </div>
+      </div>
+  </div>
+
+  <header id="header" class="header" role="banner">
+      <div class="container container--wide">
+          <div class="header__inner">
+              <a href="home" class="header__logo" aria-label="SpartanFit - Página inicial">
+                  <img src="simbolo-solido-branco.png" class="header__logo-img" alt="SpartanFit">
+              </a>
+              <button id="menu-toggle" class="header__menu-toggle" tabindex="0" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menu de navegação">
+                  Menu
+                  <svg xmlns="http://www.w3.org/2000/svg" width="33" height="15" fill="none" viewBox="0 0 33 15" aria-hidden="true">
+                      <path fill="#FFFCE1" fill-rule="evenodd" d="M.834 1.646a1 1 0 0 1 1-1h30a1 1 0 1 1 0 2h-30a1 1 0 0 1-1-1Z"></path>
+                      <path fill="#FFFCE1" fill-rule="evenodd" d="M.834 7.646a1 1 0 0 1 1-1h30a1 1 0 1 1 0 2h-30a1 1 0 0 1-1-1Z"></path>
+                      <path fill="#FFFCE1" fill-rule="evenodd" d="M.834 13.646a1 1 0 0 1 1-1h30a1 1 0 1 1 0 2h-30a1 1 0 0 1-1-1Z"></path>
+                  </svg>
+              </button>
+              <div class="header__nav" id="mobileMenu">
+                  <nav aria-label="Navegação principal">
+                      <ul class="header__menu">
+                          <li class="header__menu-item"><a href="#work" class="header__menu-link">Sobre</a></li>
+                          <li class="header__menu-item"><a href="#services" class="header__menu-link">Pilares</a></li>
+                          <li class="header__menu-item"><a href="#perfil" class="header__menu-link">Seu Perfil</a></li>
+                          <li class="header__menu-item"><a href="#contact" class="header__menu-link">Comece já</a></li>
+                      </ul>
+                  </nav>
+                  <nav aria-label="Acesso do usuário">
+                      <ul class="header__menu header__menu--secondary">
+                          <li class="header__menu-item">
+                              <a href="conta" class="header__menu-link header__menu-link--auth">Login/Criar Conta</a>
+                          </li>
+                          <li class="header__menu-item">
+                              <a href="obtenha" class="button button--stroke" style="--button-stroke: var(--color-surface-white); --button-hoverColor: var(--color-just-black);" data-block="button">
+                                  <span class="button__flair"></span>
+                                  <span class="button__label">Obtenha Spartan</span>
+                              </a>
+                          </li>
+                      </ul>
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </header>
+
+  <main id="main-content">
+    <div id="page-home" class="page-content active" role="region" aria-label="Início" aria-hidden="false">
+        
+        <section class="home-hero" data-block="home-hero">
+            <div class="container">
+                <div class="home-hero__inner">
+                    <div class="home-hero__heading">
+                        <h1 id="hero-title" class="heading-xl">SPARTAN</h1>
+                    </div>
+                    <div class="home-hero__subtitle">
+                        <h3 class="subtitle" data-block="subtitle">
+                            <p class="subtitle__label">SpartanFit – Transforme disciplina em evolução. Forje a sua melhor versão.</p>
+                        </h3>
+                    </div>
+                    <div class="home-hero__button">
+                        <a href="obtenha" class="btn-spartan" data-magnetic>
+                            <span class="btn-spartan-text">Iniciar Jornada</span>
+                            <span class="divSeta">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator" aria-hidden="true">
+                <span>Scroll</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <section class="section" id="work" aria-labelledby="work-title">
+            <div class="section__head">
+                <span class="section__tag">Sobre</span>
+                <h2 id="work-title" class="section__title reveal-text">A Spartan Fit foi criada para transformar disciplina em evolução e potencial em resultados.</h2>
+            </div>
+            <div class="work__grid">
+                <a class="work__item" href="avaliacao" data-tilt aria-label="Avaliação Spartan - análise corporal completa">
+                    <div class="work__media" style="background-image: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1600&auto=format&fit=crop');"></div>
+                    <div class="work__gradient"></div>
+                    <div class="work__info">
+                        <span class="work__arrow" aria-hidden="true"><svg width="100%" viewBox="0 0 45 38" fill="none"><path d="M24.4118 2L41.5 19.0882L24.4118 36.1765M2.06726e-07 19.0882L40.2794 19.0882" stroke="currentColor" stroke-width="4.88235"></path></svg></span>
+                        <h3 class="work__title">AVALIAÇÃO SPARTAN</h3>
+                    </div>
+                </a>
+                <a class="work__item" href="treinos" data-tilt aria-label="Treinos Personalizados - protocolos científicos">
+                    <div class="work__media" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1600&auto=format&fit=crop');"></div>
+                    <div class="work__gradient"></div>
+                    <div class="work__info">
+                        <span class="work__arrow" aria-hidden="true"><svg width="100%" viewBox="0 0 45 38" fill="none"><path d="M24.4118 2L41.5 19.0882L24.4118 36.1765M2.06726e-07 19.0882L40.2794 19.0882" stroke="currentColor" stroke-width="4.88235"></path></svg></span>
+                        <h3 class="work__title">TREINOS PERSONALIZADOS</h3>
+                    </div>
+                </a>
+                <a class="work__item" href="evolucao" data-tilt aria-label="Evolução - dashboard de progresso">
+                    <div class="work__media" style="background-image: url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=1600&auto=format&fit=crop');"></div>
+                    <div class="work__gradient"></div>
+                    <div class="work__info">
+                        <span class="work__arrow" aria-hidden="true"><svg width="100%" viewBox="0 0 45 38" fill="none"><path d="M24.4118 2L41.5 19.0882L24.4118 36.1765M2.06726e-07 19.0882L40.2794 19.0882" stroke="currentColor" stroke-width="4.88235"></path></svg></span>
+                        <h3 class="work__title">EVOLUÇÃO</h3>
+                    </div>
+                </a>
+                <a class="work__item" href="foco" data-tilt aria-label="Foco - mentalidade e disciplina">
+                    <div class="work__media" style="background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1600&auto=format&fit=crop');"></div>
+                    <div class="work__gradient"></div>
+                    <div class="work__info">
+                        <span class="work__arrow" aria-hidden="true"><svg width="100%" viewBox="0 0 45 38" fill="none"><path d="M24.4118 2L41.5 19.0882L24.4118 36.1765M2.06726e-07 19.0882L40.2794 19.0882" stroke="currentColor" stroke-width="4.88235"></path></svg></span>
+                        <h3 class="work__title">FOCO</h3>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="section" id="services" aria-labelledby="services-title">
+            <div class="section__head">
+                <span class="section__tag">Pilares</span>
+                <h2 id="services-title" class="section__title reveal-text">Forjamos guerra, disciplina e ciência para criar a sua melhor versão.</h2>
+            </div>
+            <div class="services__list">
+                <article class="service is-active" data-service>
+                    <h3 class="service__top">
+                        <span class="service__title">Avaliação <br/><span>Física</span></span>
+                        <button class="service__btn" aria-expanded="true" aria-label="Expandir Avaliação Física"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+                    </h3>
+                    <div class="service__content">
+                        <div class="service__tags"><span class="service__tag">Bioimpedância</span><span class="service__tag">Dobras Cutâneas</span><span class="service__tag">Postural</span></div>
+                        <p class="service__desc">Realizamos uma análise completa do seu corpo para mapear cada ponto forte e cada área que precisa de reforço. Sem achismos, apenas dados precisos.</p>
+                    </div>
+                </article>
+                <article class="service" data-service>
+                    <h3 class="service__top">
+                        <span class="service__title">Treinos <br/><span>Personalizados</span></span>
+                        <button class="service__btn" aria-expanded="false" aria-label="Expandir Treinos Personalizados"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+                    </h3>
+                    <div class="service__content">
+                        <div class="service__tags"><span class="service__tag">Hipertrofia</span><span class="service__tag">Emagrecimento</span><span class="service__tag">Performance</span></div>
+                        <p class="service__desc">Seu treino é forjado com base nos dados da sua avaliação e atualizado conforme sua evolução. Periodização científica focada em maximizar seus ganhos e minimizar lesões.</p>
+                    </div>
+                </article>
+                <article class="service" data-service>
+                    <h3 class="service__top">
+                        <span class="service__title">Mentalidade <br/><span>& Foco</span></span>
+                        <button class="service__btn" aria-expanded="false" aria-label="Expandir Mentalidade e Foco"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+                    </h3>
+                    <div class="service__content">
+                        <div class="service__tags"><span class="service__tag">Disciplina</span><span class="service__tag">Hábitos</span><span class="service__tag">Recuperação</span></div>
+                        <p class="service__desc">Treinamos sua capacidade de manter o olhar fixo no objetivo mesmo quando a motivação inicial acabar. Disciplina é liberdade, e aqui forjamos a sua.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <div class="marquee" id="marquee" aria-hidden="true">
+            <div class="marquee__track">
+                <span>Disciplina ✦ Evolução ✦ Constância ✦ Força ✦ Mentalidade ✦ Resultados ✦</span>
+                <span>Disciplina ✦ Evolução ✦ Constância ✦ Força ✦ Mentalidade ✦ Resultados ✦</span>
+            </div>
+        </div>
+
+        <section class="perfil section" id="perfil" aria-labelledby="perfil-title">
+            <div class="perfil__body">
+                <div class="perfil__left">
+                    <span class="section__tag">Seu Perfil</span>
+                    <h2 id="perfil-title" class="section__title reveal-text">Conta pra gente quem você é. A gente monta o resto.</h2>
+                </div>
+                <div class="perfil__right">
+                    <p>Respondendo algumas perguntas rápidas, conseguimos entender seu corpo e criar uma experiência personalizada para a sua jornada espartana.</p>
+                    <button class="btn-spartan" id="openQuizBtn" data-magnetic aria-label="Iniciar avaliação física personalizada">
+                        <span class="btn-spartan-text">Iniciar avaliação</span>
+                        <span class="divSeta">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact section" id="contact" aria-labelledby="contact-title">
+            <span class="section__tag">Comece já</span>
+            <h2 id="contact-title" class="contact__title">
+                <span class="reveal-text">Seja um</span>&nbsp;<span class="reveal-text" style="color: var(--spartan-red-bright);">espartano</span>
+            </h2>
+            <a href="obtenha" class="btn-spartan" data-magnetic id="startBtn">
+                <span class="btn-spartan-text">Iniciar Jornada</span>
+                <span class="divSeta">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </span>
+            </a>
+        </section>
+
+        <footer class="site-footer" role="contentinfo">
+            <div class="footer-giant" aria-hidden="true">SPARTAN</div>
+            <div class="footer-grid">
+                <div class="footer-col"><h4>Legal</h4><a href="termos">Terms of Use</a><a href="termos">Privacy Policy</a></div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 SpartanFit Digital. All rights reserved.</span>
+                <button id="scrollTopBtnFooter" class="scroll-top-btn">SUBIR ↑</button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ====== PÁGINA OBTEMHA SPARTAN (TEMA ESCURO) ====== -->
+    <div id="page-obtenha" class="page-content" role="region" aria-label="Obtenha Spartan" aria-hidden="true">
+        <a href="home" class="btn-back-auth btn-back-auth--fixed btn-back-auth--grey" aria-label="Voltar ao início" id="scrollTopBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Voltar ao Início</a>
+        
+        <div id="smooth-wrapper">
+          <div id="smooth-content">
+            <main style="padding-top: 15vh;">
+              <div class="divJuncao">
+                <section class="secao2">
+                  <p class="textoLongo">Em apenas <strong>1 mês de treino</strong>, você já sentirá sua energia renovada e sua disciplina forjada. <strong>Resultados reais</strong> que motivam a continuar, enquanto evoluímos para objetivos maiores e uma <strong>mentalidade inabalável</strong>.</p>
+                </section>
+                <section class="secao3">
+                  <h2 class="tituloAnimado">VOCÊ NÃO ESTARÁ SOZINHO</h2>
+                  <div class="conteudo">
+                    <div class="botoes">
+                      <a href="conta" class="btn-spartan" data-magnetic>
+                        <span class="btn-spartan-text">Inscreva-se</span>
+                        <span class="divSeta">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </span>
+                      </a>
+                    </div>
+                    <div class="cards">
+                      <div class="cardBordaInterna" data-tilt><h3>Suporte Direto</h3><p>Estaremos disponíveis no WhatsApp para tirar dúvidas e ajustar seus treinos em tempo real</p></div>
+                      <div class="cardBordaInterna" data-tilt><h3>Acompanhamento</h3><p>Acompanhamento semanal dos seus treinos, cargas, medidas e evolução corporal</p></div>
+                      <div class="cardBordaInterna" data-tilt><h3>Comunidade Spartan</h3><p>Um grupo onde guerreiros trocam experiências, vencem a preguiça e se ajudam mutuamente</p></div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <section class="secao4">
+                <p class="textoLongo reveal-text">Começamos pela <strong>Avaliação Spartan</strong>, passando pela <strong>periodização científica</strong> para criar seus treinos e evoluímos para a <strong>mentalidade inabalável</strong>, do físico ao mental. Você aprenderá a utilizar a <strong>ciência</strong> em todo o processo para acelerar sua evolução e potencializar seus resultados.</p>
+              </section>
+
+              <section class="secao6">
+                <p class="textoLongo reveal-text">Ao longo da sua jornada, você será capaz de ganhar massa, perder gordura, melhorar sua postura e criar hábitos inabaláveis. Se tornando a sua <strong>melhor versão</strong>, preparado para qualquer desafio da vida ou para conquistar o corpo que sempre quis.</p>
+              </section>
+
+                            <section class="secao7 testimonials-section" aria-labelledby="testimonials-title">
+                                <div class="depoimentos-header">
+                                    <span class="testimonials-kicker">Resultados reais</span>
+                                    <h2 id="testimonials-title" class="tituloAnimado reveal-text">COMENTÁRIOS DE QUEM JÁ USA</h2>
+                                    <p class="depo-info-text">Experiências de quem decidiu começar.</p>
+                                </div>
+
+                                <div class="testimonials-grid">
+                                    <article class="testimonial-card">
+                                        <div class="testimonial-card__top"><img src="foto-perfil.jpg" class="testimonial-avatar" alt="Foto de perfil de João Pedro" loading="lazy"><span class="testimonial-stars" aria-label="5 de 5 estrelas">★★★★★</span></div>
+                                        <blockquote>“Fechei meu primeiro objetivo de perder 5 kg e a disposição para continuar mudou completamente.”</blockquote>
+                                        <footer><strong>João Pedro</strong><span>Emagrecimento</span></footer>
+                                    </article>
+                                    <article class="testimonial-card">
+                                        <div class="testimonial-card__top"><img src="foto-perfil.jpg" class="testimonial-avatar" alt="Foto de perfil de Ana Clara" loading="lazy"><span class="testimonial-stars" aria-label="5 de 5 estrelas">★★★★★</span></div>
+                                        <blockquote>“Os protocolos me ajudaram a evoluir a carga do agachamento em poucos dias. O suporte faz diferença.”</blockquote>
+                                        <footer><strong>Ana Clara</strong><span>Performance</span></footer>
+                                    </article>
+                                    <article class="testimonial-card">
+                                        <div class="testimonial-card__top"><img src="foto-perfil.jpg" class="testimonial-avatar" alt="Foto de perfil de Gabriel Souza" loading="lazy"><span class="testimonial-stars" aria-label="5 de 5 estrelas">★★★★★</span></div>
+                                        <blockquote>“Tudo é explicado de forma clara e científica. Senti que finalmente encontrei um caminho possível.”</blockquote>
+                                        <footer><strong>Gabriel Souza</strong><span>Hábitos saudáveis</span></footer>
+                                    </article>
+                                    <article class="testimonial-card">
+                                        <div class="testimonial-card__top"><img src="foto-perfil.jpg" class="testimonial-avatar" alt="Foto de perfil de Mariana Alves" loading="lazy"><span class="testimonial-stars" aria-label="5 de 5 estrelas">★★★★★</span></div>
+                                        <blockquote>“Nunca tinha treinado de verdade. Hoje entendo o que estou fazendo e consigo manter a constância.”</blockquote>
+                                        <footer><strong>Mariana Alves</strong><span>Iniciante</span></footer>
+                                    </article>
+                                    <article class="testimonial-card">
+                                        <div class="testimonial-card__top"><img src="foto-perfil.jpg" class="testimonial-avatar" alt="Foto de perfil de Rafael Oliveira" loading="lazy"><span class="testimonial-stars" aria-label="5 de 5 estrelas">★★★★★</span></div>
+                                        <blockquote>“Conteúdo objetivo, sem enrolação e sem vender ilusão. É conhecimento que dá vontade de aplicar.”</blockquote>
+                                        <footer><strong>Rafael Oliveira</strong><span>Definição</span></footer>
+                                    </article>
+                                    <article class="testimonial-card">
+                                        <div class="testimonial-card__top"><img src="foto-perfil.jpg" class="testimonial-avatar" alt="Foto de perfil de Beatriz Martins" loading="lazy"><span class="testimonial-stars" aria-label="5 de 5 estrelas">★★★★★</span></div>
+                                        <blockquote>“A proposta me ganhou logo de cara. O acompanhamento deixa o processo muito mais humano.”</blockquote>
+                                        <footer><strong>Beatriz Martins</strong><span>Transformação</span></footer>
+                                    </article>
+                                </div>
+
+                            </section>
+            </main>
+            <footer>
+              <div class="conteudo">
+                <h2 class="tituloAnimado reveal-text">COMECE AGORA SUA JORNADA!</h2>
+                <div class="botoes">
+                  <a href="conta" class="btn-spartan" data-magnetic>
+                    <span class="btn-spartan-text">Inscreva-se</span>
+                    <span class="divSeta">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div class="faq__list">
+                <h2 class="tituloAnimado reveal-text faq-title">DÚVIDAS FREQUENTES</h2>
+                <div class="faq__item faq__item--open"><button class="faq__summary"><span>1. Os treinos são adaptados para iniciantes?</span><svg class="faq__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></button><div class="faq__body"><div class="faq__answer">Claro! Na plataforma você terá treinos do básico ao avançado, adaptados para o seu nível e biotipo corporal!</div></div></div>
+                <div class="faq__item"><button class="faq__summary"><span>2. Por onde eu recebo o acesso?</span><svg class="faq__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></button><div class="faq__body"><div class="faq__answer">Assim que finalizar sua inscrição, você recebe um e-mail com todas as instruções de acesso à plataforma SpartanFit e ao aplicativo.</div></div></div>
+                <div class="faq__item"><button class="faq__summary"><span>3. Preciso de equipamentos de academia?</span><svg class="faq__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></button><div class="faq__body"><div class="faq__answer">Sim! Os protocolos podem ser feitos em academia, em casa ou ao ar livre. Ensinamos tudo passo a passo para você se adaptar ao que tem disponível.</div></div></div>
+                <div class="faq__item"><button class="faq__summary"><span>4. Como funciona o acompanhamento?</span><svg class="faq__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></button><div class="faq__body"><div class="faq__answer">Com certeza! Você terá suporte direto para enviar seus vídeos de execução, ajustar cargas e tirar dúvidas técnicas.</div></div></div>
+                <div class="faq__item"><button class="faq__summary"><span>5. E se eu achar que a plataforma não é para mim?</span><svg class="faq__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></button><div class="faq__body"><div class="faq__answer">Você tem 7 dias de garantia incondicional. Se por qualquer motivo sentir que não é para você, devolvemos 100% do valor investido.</div></div></div>
+                <div class="faq__item"><button class="faq__summary"><span>6. Os treinos são sempre atualizados?</span><svg class="faq__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></button><div class="faq__body"><div class="faq__answer">Sim! Toda semana lançamos novos protocolos, dicas de nutrição e aulas de mentalidade para que você continue evoluindo fisicamente.</div></div></div>
+              </div>
+            </footer>
+          </div>
+        </div>
+    </div>
+
+    <!-- ====== TERMOS PAGE ====== -->
+    <div id="page-termos" class="page-content" role="region" aria-label="Termos de Uso" aria-hidden="true">
+        <div class="termos-wrapper">
+            <div class="termos-sidebar">
+                <span class="section__tag">Legal</span>
+                <h1>Termos de Uso<br>e Privacidade</h1>
+                <p>Última atualização: Janeiro de 2026.</p>
+                <div class="termos-sidebar-spacer"></div>
+                <a href="home" class="btn-back-inline" aria-label="Voltar ao início">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> 
+                    Voltar ao Início
+                </a>
+            </div>
+            <div class="termos-content">
+                <div class="termos-section"><h2>1. Aceitação dos Termos</h2><p>Ao utilizar a plataforma SpartanFit, você concorda em fornecer informações verídicas sobre seu histórico de saúde e físico. A plataforma é uma ferramenta de apoio e não substitui a orientação médica ou de profissionais de educação física presencial em casos de comorbidades.</p></div>
+                <div class="termos-section"><h2>2. Dados Pessoais e Privacidade (LGPD)</h2><p>Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Seus dados de saúde (peso, altura, histórico de lesão) são utilizados exclusivamente para a montagem dos seus treinos e planos. Não compartilhamos seus dados com terceiros sem seu consentimento explícito. Você pode solicitar a exclusão de seus dados a qualquer momento.</p></div>
+                <div class="termos-section"><h2>3. Riscos e Responsabilidade</h2><p>A prática de exercícios físicos intensos inerem riscos. Ao iniciar nossos treinos, você assume a responsabilidade por sua saúde e concorda em interromper as atividades em caso de dor aguda ou desconforto anormal. Recomendamos consultas médicas regulares para liberação para atividade física.</p></div>
+                <div class="termos-section"><h2>4. Propriedade Intelectual</h2><p>Todo o conteúdo disponibilizado na plataforma SpartanFit, incluindo textos, gráficos, logos, ícones e imagens, é de propriedade exclusiva da SpartanFit Digital. A reprodução, distribuição ou modificação sem autorização prévia é estritamente proibida.</p></div>
+                <div class="termos-section"><h2>5. Pagamentos e Cancelamento</h2><p>Os pagamentos são processados de forma segura via provedores terceiros. Você pode cancelar sua assinatura a qualquer momento através das configurações de perfil. O acesso aos serviços premium permanecerá ativo até o final do período já pago.</p></div>
+                <div class="termos-section"><h2>6. Modificações dos Termos</h2><p>Reservamo-nos o direito de modificar estes termos a qualquer momento. Os usuários serão notificados sobre alterações significativas através do e-mail cadastrado ou via notificação no aplicativo. O uso continuado da plataforma após alterações constitui aceitação dos novos termos.</p></div>
+                <div class="termos-footer"><p>© 2026 SpartanFit Digital. Todos os direitos reservados. CNPJ: 00.000.000/0001-00.</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== AVALIAÇÃO PAGE ====== -->
+    <div id="page-avaliacao" class="page-content" role="region" aria-label="Avaliação Spartan" aria-hidden="true">
+        <div class="project-hero" style="background-image: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1600&auto=format&fit=crop');">
+            <div class="project-hero-content"><h1>Avaliação Spartan</h1><p>Conheça seu corpo como nunca antes para alcançar o próximo nível.</p></div>
+        </div>
+        <div class="project-body">
+            <div class="project-meta">
+                <div><h3>Categoria</h3><p>Análise Corporal</p></div>
+                <div><h3>Duração</h3><p>60 Minutos</p></div>
+                <div><h3>Métodos</h3><p>Bioimpedância, Dobras Cutâneas, Postural</p></div>
+                <a href="home" class="back-home" aria-label="Voltar ao início">← Voltar ao Início</a>
+            </div>
+            <div>
+                <p style="font-size: 1.4rem; line-height: 1.8; margin-bottom: 2rem; color: var(--text-grey);">A Avaliação Spartan é o primeiro passo para qualquer guerreiro. Não treinamos no escuro. Utilizamos protocolos avançados de bioimpedância e avaliação postural para mapear cada ponto forte e cada área que precisa de reforço. Com dados precisos na mão, traçamos uma estratégia cirúrgica para a sua transformação.</p>
+                <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&w=1600&auto=format&fit=crop" class="project-img" alt="Avaliação Física em andamento" loading="lazy" />
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== TREINOS PAGE ====== -->
+    <div id="page-treinos" class="page-content" role="region" aria-label="Treinos Personalizados" aria-hidden="true">
+        <div class="project-hero" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1600&auto=format&fit=crop');">
+            <div class="project-hero-content"><h1>Treinos Personalizados</h1><p>Protocolos desenhados para o seu biotipo e seus objetivos.</p></div>
+        </div>
+        <div class="project-body">
+            <div class="project-meta">
+                <div><h3>Modalidade</h3><p>Hipertrofia / Emagrecimento / Performance</p></div>
+                <div><h3>Suporte</h3><p>Acompanhamento Semanal</p></div>
+                <a href="home" class="back-home" aria-label="Voltar ao início">← Voltar ao Início</a>
+            </div>
+            <div>
+                <p style="font-size: 1.4rem; line-height: 1.8; margin-bottom: 2rem; color: var(--text-grey);">Esqueça as planilhas genéricas de internet. Seu treino é forjado com base nos dados da sua Avaliação Spartan e atualizado conforme sua evolução. Periodização científica focada em maximizar seus ganhos e minimizar lesões. Você terá acesso ao nosso aplicativo com vídeos, cargas e descansos cronometrados.</p>
+                <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=1600&auto=format&fit=crop" class="project-img" alt="Treino personalizado em execução" loading="lazy" />
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== EVOLUÇÃO PAGE ====== -->
+    <div id="page-evolucao" class="page-content" role="region" aria-label="Evolução" aria-hidden="true">
+        <div class="project-hero" style="background-image: url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=1600&auto=format&fit=crop');">
+            <div class="project-hero-content"><h1>Evolução</h1><p>O resultado da disciplina diária e do método preciso.</p></div>
+        </div>
+        <div class="project-body">
+            <div class="project-meta">
+                <div><h3>Foco</h3><p>Resultados a Longo Prazo</p></div>
+                <a href="home" class="back-home" aria-label="Voltar ao início">← Voltar ao Início</a>
+            </div>
+            <div>
+                <p style="font-size: 1.4rem; line-height: 1.8; margin-bottom: 2rem; color: var(--text-grey);">Evolução não é achismo, é matemática. Através do nosso dashboard exclusivo, você acompanha a curva de progresso das suas cargas, medidas e composição corporal. A cada mês, ajustamos a rota para garantir que você nunca estagne. A sua constância aliada ao nosso método gera resultados que falam por si.</p>
+                <img src="https://images.unsplash.com/photo-1584466977773-e625c37cdd50?q=80&w=1600&auto=format&fit=crop" class="project-img" alt="Evolução fitness ao longo do tempo" loading="lazy" />
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== FOCO PAGE ====== -->
+    <div id="page-foco" class="page-content" role="region" aria-label="Foco e Mentalidade" aria-hidden="true">
+        <div class="project-hero" style="background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1600&auto=format&fit=crop');">
+            <div class="project-hero-content"><h1>Foco</h1><p>A mentalidade afiada que separa guerreiros de espectadores.</p></div>
+        </div>
+        <div class="project-body">
+            <div class="project-meta">
+                <div><h3>Área</h3><p>Mentalidade e Hábitos</p></div>
+                <a href="home" class="back-home" aria-label="Voltar ao início">← Voltar ao Início</a>
+            </div>
+            <div>
+                <p style="font-size: 1.4rem; line-height: 1.8; margin-bottom: 2rem; color: var(--text-grey);">O músculo mais importante que você vai treinar aqui está entre suas orelhas. O programa Foco SpartanFit traz mentorias em disciplina, rotinas de recuperação e sono, e estratégias de nutrição mental. Treinamos sua capacidade de manter o olhar fixo no objetivo mesmo quando a motivação inicial acabar. Disciplina é liberdade.</p>
+                <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1600&auto=format&fit=crop" class="project-img" alt="Foco e disciplina no treino" loading="lazy" />
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== QUIZ FULL PAGE ====== -->
+    <div id="page-quiz" data-lenis-prevent class="page-content" role="region" aria-label="Avaliação Física - Questionário" aria-hidden="true">
+        <a href="home" class="btn-back-auth btn-back-auth--fixed btn-back-auth--grey" aria-label="Voltar para Home"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Voltar para Home</a>
+        <div class="quiz-wrapper">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <div class="quiz-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="10" id="quizProgress" aria-label="Progresso da avaliação"><div class="quiz-progress__bar" id="quizProgressBar"></div></div>
+                    <div class="quiz-step-label" id="quizStepLabel" aria-live="polite">Pergunta 1 de 10</div>
+                </div>
+                <div class="quiz-steps" id="quizSteps" role="region" aria-live="polite"></div>
+                <div class="quiz-nav" id="quizNav">
+                    <button class="quiz-btn quiz-btn--back" id="quizBack" aria-label="Voltar para a pergunta anterior">← Voltar</button>
+                    <button class="quiz-btn quiz-btn--next" id="quizNext" aria-label="Avançar para a próxima pergunta">Próximo →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== CONTA PAGE ====== -->
+    <div id="page-conta" class="page-content" role="region" aria-label="Login e Registro" aria-hidden="true">
+        <a href="home" class="btn-back-auth btn-back-auth--fixed btn-back-auth--grey" aria-label="Voltar ao início"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Voltar ao Início</a>
+        <div class="auth-wrapper">
+            <div class="ds-container" id="dsContainer">
+                <div class="form-container sign-up-container">
+                    <form id="registerForm" novalidate>
+                        <h1>Criar Conta</h1>
+                        <div class="float-input"><input type="text" id="regNome" required aria-required="true"><label for="regNome">Nome Completo</label></div>
+                        <div class="float-input"><input type="email" id="regEmail" required aria-required="true"><label for="regEmail">Email</label></div>
+                        <div class="float-input"><input type="password" id="regPassword" required aria-required="true" aria-describedby="strengthLabel" minlength="8"><label for="regPassword">Senha</label></div>
+                        <div class="strength-bar" aria-hidden="true"><div class="strength-bar__seg"></div><div class="strength-bar__seg"></div><div class="strength-bar__seg"></div><div class="strength-bar__seg"></div></div>
+                        <span class="ds-strength-label" id="strengthLabel" role="status" aria-live="polite">Digite uma senha (mín. 8 caracteres)</span>
+                        <label class="ds-terms"><input type="checkbox" id="regTerms" required aria-required="true" /><span>Concordo com os <a href="termos">Termos</a> e <a href="termos">Privacidade</a></span></label>
+                        <button type="submit" class="btn-auth-submit">Registrar</button>
+                        <a href="#" class="ds-mobile-link" id="dsMobileToLogin">Já tem conta? Entrar</a>
+                    </form>
+                </div>
+                <div class="form-container sign-in-container">
+                    <form id="loginForm" novalidate>
+                        <h1>Bem-vindo</h1>
+                        <div class="float-input"><input type="email" id="loginEmail" required aria-required="true"><label for="loginEmail">Email</label></div>
+                        <div class="float-input"><input type="password" id="loginPass" required aria-required="true"><label for="loginPass">Senha</label></div>
+                        <a href="#" class="ds-forgot">Esqueceu a senha?</a>
+                        <button type="submit" class="btn-auth-submit">Entrar</button>
+                        <a href="#" class="ds-mobile-link" id="dsMobileToRegister">Não tem conta? Cadastre-se</a>
+                    </form>
+                </div>
+                <div class="overlay-container">
+                    <div class="overlay">
+                        <video muted loop playsinline class="overlay-video" id="bgVideoConta">
+                            <source src="bg-conta.mp4" type="video/mp4">
+                        </video>
+                        <div class="overlay-panel overlay-left">
+                            <img src="simbolo-solido-branco.png" class="logo-img-panel" alt="SpartanFit" style="height: 60px; margin-bottom: 2rem;">
+                            <h1>Olá Guerreiro</h1>
+                            <p>Se você já tem uma conta, faça login para continuar sua jornada.</p>
+                            <button class="ghost" id="dsLoginButton">Entrar</button>
+                        </div>
+                        <div class="overlay-panel overlay-right">
+                            <img src="simbolo-solido-branco.png" class="logo-img-panel" alt="SpartanFit" style="height: 60px; margin-bottom: 2rem;">
+                            <h1>Comece Agora</h1>
+                            <p>Se você não tem uma conta ainda, junte-se a nós e inicie sua transformação.</p>
+                            <button class="ghost" id="dsRegisterButton">Criar Conta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
